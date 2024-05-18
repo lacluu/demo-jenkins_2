@@ -11,9 +11,12 @@ pipeline {
                 echo '$GIT_BRANCH'
             }
         }
-        stage('Docker build') {
+        stage('Build') {
             steps {
-                sh(script: 'docker-compose build')
+                script {
+                    sh 'docker --version'  // Verify Docker is available
+                    sh 'docker build -t myapp:latest .'  // Build Docker image
+                }
             }
         }
     }
